@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  String name = "Hasib";
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopperhop'),
+        title: const Text('Shopperhop'),
       ),
-      body: Center(
-        child: Container(
-          child: Text('Hey my name is $name'),
-        ),
+      body: const Center(
+        child: Text("Hey! awesome"),
       ),
-      drawer: Drawer(),
     );
   }
 }
