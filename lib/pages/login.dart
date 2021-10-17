@@ -51,38 +51,40 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  InkWell(
-                    onTap: () async {
-                      setState(() {
-                        changeButon = true;
-                      });
-                      await Future.delayed(
-                        const Duration(seconds: 1),
-                      );
-                      Navigator.pushNamed(context, '/home');
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(seconds: 1),
-                      width: changeButon ? 50 : 150,
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.deepPurple,
-                        borderRadius:
-                            BorderRadius.circular(changeButon ? 50 : 10),
+                  Material(
+                    color: Colors.deepPurple,
+                    borderRadius: BorderRadius.circular(changeButon ? 50 : 10),
+                    child: InkWell(
+                      onTap: () async {
+                        setState(() {
+                          changeButon = true;
+                        });
+                        await Future.delayed(
+                          const Duration(seconds: 1),
+                        );
+                        await Navigator.pushNamed(context, '/home');
+                        setState(() {
+                          changeButon = false;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(seconds: 1),
+                        width: changeButon ? 50 : 150,
+                        height: 50,
+                        alignment: Alignment.center,
+                        child: changeButon
+                            ? const Icon(
+                                Icons.done,
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                'Login',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
                       ),
-                      child: changeButon
-                          ? const Icon(
-                              Icons.done,
-                              color: Colors.white,
-                            )
-                          : const Text(
-                              'Login',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            ),
                     ),
                   ),
                 ],
