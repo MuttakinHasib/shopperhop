@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = '';
+  bool changeButon = false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +22,9 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            const Text(
-              "Welcome",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            Text(
+              "Welcome $name",
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -25,6 +33,10 @@ class LoginPage extends StatelessWidget {
                   TextFormField(
                     decoration: const InputDecoration(
                         hintText: 'Enter username', labelText: 'Username'),
+                    onChanged: (value) => {
+                      name = value,
+                      setState(() {}),
+                    },
                   ),
                   const SizedBox(
                     height: 20.0,
@@ -39,12 +51,39 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  ElevatedButton(
-                    onPressed: () => {},
-                    style: TextButton.styleFrom(
-                      minimumSize: const Size(100, 40),
+                  InkWell(
+                    onTap: () async {
+                      setState(() {
+                        changeButon = true;
+                      });
+                      await Future.delayed(
+                        const Duration(seconds: 1),
+                      );
+                      Navigator.pushNamed(context, '/home');
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(seconds: 1),
+                      width: changeButon ? 50 : 150,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple,
+                        borderRadius:
+                            BorderRadius.circular(changeButon ? 50 : 10),
+                      ),
+                      child: changeButon
+                          ? const Icon(
+                              Icons.done,
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              'Login',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
                     ),
-                    child: const Text('Login'),
                   ),
                 ],
               ),
